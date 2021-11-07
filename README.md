@@ -1,2 +1,2 @@
-# goit-markup-hw-07
-Модуль 7 - Методология BEM. Препроцессор SASS.
+# goit-markup-hw-01
+homework1
