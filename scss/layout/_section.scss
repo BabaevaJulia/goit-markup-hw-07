@@ -10,16 +10,16 @@
 .item {
   flex-basis: calc(100% / 4 - 30px);
   margin-left: 30px;
-}
 
-.item::before {
-  content: "";
-  display: block;
-  height: 120px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #f5f4fa;
-  margin-bottom: 30px;
+  &::before {
+    content: "";
+    display: block;
+    height: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f5f4fa;
+    margin-bottom: 30px;
+  }
 }
 
 .icon-antenna::before {
