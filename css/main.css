@@ -9,8 +9,28 @@
   --nav-footer-color: rgba(255, 255, 255, 0.6);
 }
 
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
+}
+
 html {
   box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", "Verdana", sans-serif;
+  background-color: var(--primary-white-color);
+  color: var(--primary-text-color);
+  font-family: Roboto, sans-serif;
 }
 
 p,
@@ -28,46 +48,19 @@ ul {
   padding: 0;
 }
 
+img {
+  display: block;
+}
+
 button {
   cursor: pointer;
   border: none;
-}
-
-img {
-  display: block;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-body {
-  font-family: "Roboto", "Verdana", sans-serif;
-  background-color: var(--primary-white-color);
-  color: var(--primary-text-color);
-  font-family: Roboto, sans-serif;
-}
-
-.container {
-  width: 1200px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: 0 auto 0 auto;
-}
-
-.visually-hidden {
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  border: 0;
-  padding: 0;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  margin: -1px;
 }
 
 .list {
@@ -80,16 +73,212 @@ body {
   text-decoration: none;
 }
 
-/* цвет основго текста #212121 */
-/* вторичный цвет текста #757575 */
-/* белый #FFFFFF */
-/* вторичный белый rgba(255, 255, 255, 0.6) */
-/* акцент #2196F3 */
-/* вторичный цвет фона #2F303A */
-/* основной цвет фона cccccc */
-/* четвертый цвет фона #F5F4FA */
+.container {
+  width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto 0 auto;
+}
 
-/* ------------Header------ */
+.backdrop {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  transition: opacity 500ms linear, visibility 500ms linear;
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, 0%) scale(0.5);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 40px;
+  min-width: 528px;
+  min-height: 581px;
+  background-color: var(--primary-white-color);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--primary-white-color);
+  color: #000000;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-modal:hover,
+.button-modal:focus {
+  color: var(--accent-color);
+}
+
+.icon-close {
+  fill: currentColor;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-form-head {
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: var(--primary-text-color);
+}
+
+.modal-form-field {
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+  color: var(--title-text-color);
+}
+
+.modal-form-wrapper {
+  position: relative;
+  display: block;
+  margin-top: 4px;
+}
+
+.modal-form-input {
+  width: 100%;
+  height: 40px;
+  padding-left: 30px;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 4px;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-form-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.modal-form-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  fill: var(--primary-text-color);
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-form-input:focus + .modal-form-icon {
+  fill: var(--accent-color);
+}
+
+.modal-form-message {
+  width: 100%;
+  height: 120px;
+  margin-top: 4px;
+  padding: 12px 16px;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 4px;
+  resize: none;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-form-message::placeholder {
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1, 14;
+  letter-spacing: 0.01em;
+  color: rgba(117, 117, 117, 0.5);
+}
+
+.modal-form-message:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.modal-form-checkbox-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.71;
+  letter-spacing: 0.03em;
+  color: var(--title-text-color);
+}
+
+.modal-form-checkbox-label::before {
+  display: block;
+  content: "";
+  width: 18px;
+  height: 17px;
+  margin-right: 9px;
+  border: 1px solid var(--primary-text-color);
+  cursor: pointer;
+}
+
+.modal-form-checkbox:checked + .modal-form-checkbox-label::before {
+  background-color: var(--accent-color);
+  background-image: url(../images/check.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.modal-form-checkbox:focus + .modal-form-checkbox-label::before {
+  outline: 2px solid var(--accent-color);
+}
+
+.link-policy {
+  color: var(--accent-color);
+}
+
+.modal-form-button {
+  align-self: center;
+  min-width: 200px;
+  height: 50px;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.87;
+  text-align: center;
+  letter-spacing: 0.06em;
+  color: var(--primary-white-color);
+  background-color: var(--accent-color);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 .logo {
   font-family: "Raleway", sans-serif;
@@ -121,8 +310,6 @@ body {
   display: flex;
   align-items: center;
 }
-
-/* --------site nav------- */
 
 .header-container {
   display: flex;
@@ -228,235 +415,6 @@ body {
   fill: var(--accent-color);
 }
 
-/*----------------Modal------------*/
-
-.backdrop {
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.2);
-
-  transition: opacity 500ms linear, visibility 500ms linear;
-}
-
-.backdrop.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.backdrop.is-hidden .modal {
-  transform: translate(-50%, 0%) scale(0.5);
-}
-
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  padding: 40px;
-
-  min-width: 528px;
-  min-height: 581px;
-
-  background-color: var(--primary-white-color);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
-    1px 4px 6px rgba(0, 0, 0, 0.16);
-  border-radius: 4px;
-  transform: translate(-50%, -50%) scale(1);
-  transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.button-modal {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 8px;
-  right: 8px;
-  width: 30px;
-  height: 30px;
-  outline: none;
-  cursor: pointer;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: var(--primary-white-color);
-
-  color: #000000;
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.button-modal:hover,
-.button-modal:focus {
-  color: var(--accent-color);
-}
-
-.icon-close {
-  fill: currentColor;
-}
-
-.modal-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-form-head {
-  margin-bottom: 12px;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1.15;
-  text-align: center;
-  letter-spacing: 0.03em;
-  color: var(--primary-text-color);
-}
-
-.modal-form-field {
-  margin-bottom: 20px;
-  font-weight: 400;
-
-  font-size: 12px;
-  line-height: 1.16;
-  letter-spacing: 0.01em;
-  color: var(--title-text-color);
-}
-
-.modal-form-wrapper {
-  position: relative;
-  display: block;
-
-  margin-top: 4px;
-}
-
-.modal-form-input {
-  width: 100%;
-  height: 40px;
-
-  padding-left: 30px;
-
-  border: 1px solid rgba(33, 33, 33, 0.2);
-  border-radius: 4px;
-
-  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.modal-form-input:focus {
-  outline: none;
-  border-color: var(--accent-color);
-}
-
-.modal-form-icon {
-  display: block;
-  width: 18px;
-  height: 18px;
-
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-
-  fill: var(--primary-text-color);
-  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.modal-form-input:focus + .modal-form-icon {
-  fill: var(--accent-color);
-}
-
-.modal-form-message {
-  width: 100%;
-  height: 120px;
-
-  margin-top: 4px;
-  padding: 12px 16px;
-
-  border: 1px solid rgba(33, 33, 33, 0.2);
-  border-radius: 4px;
-
-  resize: none;
-
-  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.modal-form-message::placeholder {
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1, 14;
-  letter-spacing: 0.01em;
-
-  color: rgba(117, 117, 117, 0.5);
-}
-
-.modal-form-message:focus {
-  outline: none;
-  border-color: var(--accent-color);
-}
-
-.modal-form-checkbox-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 30px;
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.71;
-  letter-spacing: 0.03em;
-  color: var(--title-text-color);
-}
-
-.modal-form-checkbox-label::before {
-  display: block;
-  content: "";
-  width: 18px;
-  height: 17px;
-
-  margin-right: 9px;
-
-  border: 1px solid var(--primary-text-color);
-  cursor: pointer;
-}
-
-.modal-form-checkbox:checked + .modal-form-checkbox-label::before {
-  background-color: var(--accent-color);
-  background-image: url(../images/check.svg);
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-}
-
-.modal-form-checkbox:focus + .modal-form-checkbox-label::before {
-  outline: 2px solid var(--accent-color);
-}
-
-.link-policy {
-  color: var(--accent-color);
-}
-
-.modal-form-button {
-  align-self: center;
-
-  min-width: 200px;
-  height: 50px;
-
-  font-family: Roboto;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.87;
-  text-align: center;
-  letter-spacing: 0.06em;
-
-  color: var(--primary-white-color);
-  background-color: var(--accent-color);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/*------ Hero------ */
-
 .hero {
   padding-top: 200px;
   padding-bottom: 200px;
@@ -464,22 +422,18 @@ body {
 
 .section-hero {
   background-color: var(--secondary-bg-color);
-
   text-align: center;
 }
 
 .hero-title {
   color: var(--primary-white-color);
-
   font-weight: 900;
   font-size: 44px;
   line-height: 1.37;
   letter-spacing: 0.06em;
-
   margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
-
   width: 696px;
   height: 120px;
 }
@@ -489,17 +443,11 @@ body {
   height: 600px;
   margin-left: auto;
   margin-right: auto;
-  background-image: linear-gradient(
-      rgba(47, 48, 58, 0.4),
-      rgba(47, 48, 58, 0.4)
-    ),
-    url(../images/hero.jpg);
+  background-image: linear-gradient(rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(../images/hero.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
-
-/* Button */
 
 .button {
   color: var(--primary-white-color);
@@ -509,10 +457,8 @@ body {
   line-height: 1.87;
   letter-spacing: 0.06em;
   font-family: inherit;
-
   display: block;
   margin: 0 auto;
-
   min-width: 200px;
   margin-top: 30px;
   height: 50px;
@@ -525,8 +471,6 @@ body {
   background-color: var(--accent-color);
 }
 
-/* Приоритеты */
-
 .section {
   background-color: var(--primary-white-color);
   padding-top: 94px;
@@ -536,6 +480,7 @@ body {
   display: flex;
   margin-left: -30px;
 }
+
 .item {
   flex-basis: calc(100% / 4 - 30px);
   margin-left: 30px;
@@ -586,8 +531,6 @@ body {
   width: 270px;
 }
 
-/*-----Чем мы занимаемся------*/
-
 .section-box {
   background-color: var(--primary-white-color);
   padding-top: 92px;
@@ -601,7 +544,6 @@ body {
   line-height: 42px;
   text-align: center;
   letter-spacing: 0.03em;
-
   margin-bottom: 50px;
 }
 
@@ -629,7 +571,6 @@ body {
   width: 100%;
   height: 70px;
   background: rgba(47, 48, 58, 0.8);
-
   bottom: 0%;
 }
 
@@ -638,11 +579,9 @@ body {
   position: absolute;
   justify-content: center;
   align-items: center;
-
   bottom: 0px;
   width: 100%;
   height: 70px;
-
   font-weight: 700;
   font-size: 14px;
   line-height: 1.14px;
@@ -652,8 +591,6 @@ body {
   z-index: 1;
   color: var(--primary-white-color);
 }
-
-/*-----Наша команда-----*/
 
 .command {
   background-color: var(--fourth-bg-color);
@@ -684,9 +621,9 @@ body {
   flex-basis: calc((100% - 4 * 30px) / 4);
   margin-left: 30px;
   margin-bottom: 30px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
-    0px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
 }
+
 .command-subject {
   color: var(--primary-text-color);
   font-weight: 500;
@@ -754,8 +691,6 @@ body {
   fill: var(--primary-white-color);
 }
 
-/* --------Постоянные клиенты */
-
 .clients {
   background-color: var(--primary-white-color);
   padding-top: 94px;
@@ -797,8 +732,7 @@ body {
   border-radius: 4px;
   width: 170px;
   height: 92px;
-  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .clients-link:hover,
@@ -818,12 +752,11 @@ body {
   transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ------Футер----- */
-
 .footer-container {
   display: flex;
   align-items: baseline;
 }
+
 .page-footer {
   color: var(--primary-white-color);
   background-color: var(--secondary-bg-color);
@@ -841,6 +774,7 @@ body {
   margin-bottom: 20px;
   display: block;
 }
+
 .web {
   color: var(--accent-color);
 }
@@ -883,21 +817,22 @@ body {
   margin-bottom: 10px;
   display: block;
 }
+
 .about-tel {
   display: block;
 }
-
-/* --------Footer right------- */
 
 .footer-right {
   width: 206px;
   height: 80px;
   margin-left: 70px;
 }
+
 .footer-right-list {
   list-style: none;
   display: flex;
 }
+
 .footer-right-title {
   margin-top: 0;
   margin-bottom: 20px;
@@ -909,6 +844,7 @@ body {
   text-transform: uppercase;
   color: var(--white);
 }
+
 .footer-right-item {
   border-radius: 50%;
   display: flex;
@@ -940,8 +876,6 @@ body {
   background-color: var(--accent-color);
 }
 
-/*-----------Footer right two--------*/
-
 .footer-right-two {
   margin-left: 93px;
   flex-direction: column;
@@ -965,9 +899,7 @@ body {
   width: 358px;
   height: 50px;
   padding-left: 16px;
-
   color: var(--primary-white-color);
-
   background-color: var(--secondary-bg-color);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-sizing: border-box;
@@ -978,7 +910,6 @@ body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
   margin-left: 12px;
   padding: 10px 29px;
   color: var(--primary-white-color);
@@ -988,7 +919,6 @@ body {
   line-height: 1.87;
   letter-spacing: 0.06em;
   font-family: inherit;
-
   min-width: 200px;
   height: 50px;
   background-color: var(--accent-color);
@@ -1000,16 +930,13 @@ body {
 .footer-button:focus {
   background-color: var(--accent-color);
 }
+
 .button-footer-icon {
   margin-left: 10px;
   width: 24px;
   height: 24px;
   fill: var(--primary-white-color);
 }
-
-/* ------Страница портфолио------- */
-
-/*  ----------Фильтры-------*/
 
 .section-info {
   background-color: var(--primary-white-color);
@@ -1028,18 +955,16 @@ body {
   letter-spacing: 0.03em;
   border-radius: 4px;
   padding: 6px 22px 6px 22px;
-  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .button-link:hover,
 .button-link:focus {
   color: var(--primary-white-color);
   background-color: var(--accent-color);
-  box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
-    0px 2px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
 }
+
 .btn-info {
   display: flex;
   margin-bottom: 50px;
@@ -1049,8 +974,6 @@ body {
 .btn-item:not(:last-child) {
   margin-right: 8px;
 }
-
-/*-----------Проэкты----------*/
 
 .projects {
   display: flex;
@@ -1073,13 +996,13 @@ body {
 .projects-item:nth-child(3n) {
   margin-right: 0;
 }
+
 .projects-item:nth-last-child(-n + 3) {
   margin-bottom: 0;
 }
 
 .projects-description {
   padding: 20px 24px 20px 24px;
-
   border: 1px solid #eeeeee;
   box-sizing: border-box;
 }
@@ -1104,8 +1027,7 @@ body {
 }
 
 .projects-link:hover {
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
-    1px 4px 6px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
 .projects-overlay {
@@ -1117,7 +1039,6 @@ body {
   position: absolute;
   opacity: 1;
   display: flex;
-
   top: 0;
   left: 0;
   color: var(--primary-white-color);
@@ -1128,7 +1049,6 @@ body {
   padding: 63px 24px;
   height: 100%;
   width: 100%;
-
   transform: translateY(100%);
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1136,3 +1056,4 @@ body {
 .projects-item:hover .projects-picture-text {
   transform: translateY(0);
 }
+/*# sourceMappingURL=main.css.map */
